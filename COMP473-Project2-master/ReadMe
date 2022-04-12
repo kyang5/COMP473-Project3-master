@@ -1,0 +1,21 @@
+We made several corrections to our previous submission. We spoke with Sophie and most of the issues were resolved.
+But the biggest update is that we included a calculateProblemRateForFacility() function that was missing in our
+previous submission.
+
+For clarity: getListFacilityRooms() and getListFacilities() retrieves the information for the facilities in
+
+             the same way that getFacilityInformation() would.
+
+             addFacilityRoom() performs an identical purpose as addFacilityDetail().
+
+             Similarly speaking assignUserToFacilityRoom() performs an identical purpose as assignFacilityToUse().
+
+             Lastly, getMaintenanceRequestList()
+             (line 67) in the MaintenanceLog class under faclityManagement fulfills
+             a similar fuction as listFacilityProblems().
+
+
+We created interfaces for each of our pre-existing classes and made multiple additions to the xml file to integrate
+the Spring Framework into our project. Lastly ,we included multiple test cases for the project in FacilityClient file
+with additional comments on what each setter, getter, and add method was meant to accomplish to print each of their
+respectively related lists.

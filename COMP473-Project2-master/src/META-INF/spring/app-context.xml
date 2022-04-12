@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <description> Wiring the dependencies for the University Facility Management application.</description>
+
+    <context:component-scan base-package="com.university" />
+
+
+    <bean id="facilityLocation" class="com.university.model.facility.FacilityLocation" scope="prototype">
+        <!-- Inject the FacilityRoom List -->
+        <property name="listFacilityRooms">
+            <list/>
+            <!--
+            <list>
+                <ref beans="facilityRoom"/>
+            </list>
+             -->
+        </property>
+        <property name="facilityManager" ref="facilityManager"/>
+    </bean>
+
+    <bean id="facilityRoom" class="com.university.model.facility.FacilityRoom" scope="prototype"/>
+    <bean id="inspector" class="com.university.model.facilityManagement.Inspector" scope="prototype"/>
+    <bean id="maintenanceWorker" class="com.university.model.facilityManagement.MaintenanceWorker" scope="prototype"/>
+    <bean id="facilityManager" class="com.university.model.facility.FacilityManager" scope="prototype">
+        <!-- Inject the FacilityLocation List -->
+        <property name="listFacilities">
+            <list/>
+            <!--
+            <list>
+                <ref beans="facilityLocation"/>
+            </list>
+             -->
+        </property>
+    </bean>
+
+    <bean id="user" class="com.university.model.use.User" scope="prototype">
+        <property name="useType" ref="type"/>
+    </bean>
+
+    <bean id="type" class="com.university.model.use.Type" scope="prototype">
+        <property name="facilityRoom" ref="facilityRoom"/>
+    </bean>
+
+
+
+    <bean id="useSchedule" class="com.university.model.use.UseSchedule" scope="prototype">
+        <!-- Inject the User List -->
+        <property name="listUsers">
+            <list/>
+            <!--
+            <list>
+                <ref beans="user"/>
+            </list>
+             -->
+        </property>
+        <property name="listActualUsage">
+        <!-- Inject the Use Type List -->
+            <list/>
+            <!--
+            <list>
+                <ref beans="type"/>
+            </list>
+             -->
+        </property>
+    </bean>
+
+    <bean id="inspection" class="com.university.model.facilityManagement.Inspection" scope="prototype">
+        <property name="inspectorList">
+            <list/>
+            <!--
+             <list>
+                 <ref bean="IInspector" />
+            </list>
+            -->
+        </property>
+        <property name="inspector" ref="inspector" />
+        <property name="facilityRoom" ref="facilityRoom" />
+    </bean>
+    <bean id="maintenanceLog" class="com.university.model.facilityManagement.MaintenanceLog" scope="prototype">
+        <property name="maintenanceList">
+            <list/>
+            <!--
+             <list>
+                 <ref bean="IOrder" />
+            </list>
+            -->
+        </property>
+        <property name="scheduleList">
+            <list/>
+            <!--
+             <list>
+                 <ref bean="ISchedule" />
+            </list>
+            -->
+        </property>
+        <property name="requestList">
+            <list/>
+            <!--
+             <list>
+                 <ref bean="IRequest" />
+            </list>
+            -->
+        </property>
+        <property name="inspectionList">
+            <list/>
+            <!--
+             <list>
+                 <ref bean="IInspection" />
+            </list>
+            -->
+        </property>
+
+    </bean>
+    <bean id="maintenanceOrder" class="com.university.model.facilityManagement.MaintenanceOrder" scope="prototype">
+        <property name="facilityRoom" ref="facilityRoom" />
+    </bean>
+    <bean id="maintenanceRequest" class="com.university.model.facilityManagement.MaintenanceRequest" scope="prototype">
+        <property name="facilityRoom" ref="facilityRoom" />
+    </bean>
+    <bean id="maintenanceSchedule" class="com.university.model.facilityManagement.MaintenanceSchedule" scope="prototype">
+        <property name="facilityRoom" ref="facilityRoom" />
+        <property name="maintenanceWorker" ref="maintenanceWorker" />
+    </bean>
+
+</beans>
