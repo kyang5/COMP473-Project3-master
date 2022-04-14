@@ -27,13 +27,13 @@
     <bean id="inspector" class="com.university.model.facilityManagement.Inspector" scope="prototype"/>
     <bean id="maintenanceWorker" class="com.university.model.facilityManagement.MaintenanceWorker" scope="prototype"/>
     <bean id="office" class="com.university.model.use.Office" scope="prototype">
-        <property name="facilityRoom"/>
+        <property name="facilityRoom" ref="facilityRoom"/>
     </bean>
     <bean id="lab" class="com.university.model.use.Lab" scope="prototype">
-        <property name="facilityRoom"/>
+        <property name="facilityRoom" ref="facilityRoom"/>
     </bean>
     <bean id="classRoom" class="com.university.model.use.ClassRoom" scope="prototype">
-        <property name="facilityRoom"/>
+        <property name="facilityRoom" ref="facilityRoom"/>
     </bean>
     <bean id="facilityManager" class="com.university.model.facility.FacilityManager" scope="prototype">
         <!-- Inject the FacilityLocation List -->
@@ -49,18 +49,9 @@
 
     <bean id="student" class="com.university.model.use.Student" scope="prototype">
         <property name="classRoom" ref="classRoom"/>
-        <property name="lab" ref="lab"/>
-        <property name="office" ref="office"/>
     </bean>
 
     <bean id="employee" class="com.university.model.use.Employee" scope="prototype">
-        <property name="classRoom" ref="classRoom"/>
-        <property name="lab" ref="lab"/>
-        <property name="office" ref="office"/>
-    </bean>
-
-    <bean id="type" class="com.university.model.use.Type" scope="prototype">
-        <property name="facilityRoom" ref="facilityRoom"/>
     </bean>
 
     <bean id="useSchedule" class="com.university.model.use.UseSchedule" scope="prototype">
