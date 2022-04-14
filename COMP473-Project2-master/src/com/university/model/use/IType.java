@@ -12,9 +12,5 @@ public interface IType {
     void setUseStartDate(Date useStartDate);
     Date getUseEndDate();
     void setUseEndDate(Date useEndDate);
-    int getOccupancy();
-    void setOccupancy(int occupancy);
     String getFacilityUseType();
-    void setFacilityUseType(String facilityUseType);
-
 }
