@@ -64,6 +64,8 @@ class UseScheduleTest {
         useSchedule.assignUserToFacilityRoom(student);
 
         assertEquals(10, room.getCapacity());
+        assertEquals("Office", student.getUseType().getFacilityUseType());
+        assertEquals(office, student.getUseType());
         assertEquals(1, student.getOccupancy());
         assertEquals(9, useSchedule.requestAvailableCapacity(room, student));
     }
