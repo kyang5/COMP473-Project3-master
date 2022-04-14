@@ -1,22 +1,53 @@
 package com.university.model.use;
 
-public class Employee extends User{
-    private String userTitle;
-    private IType useType;
+public class Employee implements IUser{
+    private String userFirstName;
+    private String userLastName;
+    private int userId;
+    private final IType useType;
+    public int occupancy;
 
-    public String getUserTitle() {
-        return userTitle;
+    public String getUserFirstName() {
+        return userFirstName;
     }
 
-    public void setUserTitle() {
-        this.userTitle = "Employee";
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUserTitle() {
+        return "Employee";
+    }
+
+    public Employee(IType useType) {
+        this.useType = useType;
     }
 
     public IType getUseType() {
         return useType;
     }
 
-    public void setUseType(IType useType) {
-        this.useType = useType;
+    public int getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(int occupancy) {
+        this.occupancy = occupancy;
     }
 }
