@@ -1,14 +1,50 @@
 package com.university.model.use;
 
-public class Office extends Type{
+import com.university.model.facility.IFacilityRoom;
 
-    private String facilityUseType;
+import java.util.Date;
 
-    public String getFacilityUseType() {
-        return facilityUseType;
+public class Office implements IType{
+    private int typeId;
+    private IFacilityRoom facilityRoom;
+    private Date useStartDate;
+    private Date useEndDate;
+
+
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setFacilityUseType() {
-        this.facilityUseType = "Office";
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    // assign facility room to use
+    public IFacilityRoom getFacilityRoom() {
+        return facilityRoom;
+    }
+
+    public void setFacilityRoom(IFacilityRoom facilityRoom) {
+        this.facilityRoom = facilityRoom;
+    }
+
+    public Date getUseStartDate() {
+        return useStartDate;
+    }
+
+    public void setUseStartDate(Date useStartDate) {
+        this.useStartDate = useStartDate;
+    }
+
+    public Date getUseEndDate() {
+        return useEndDate;
+    }
+
+    public void setUseEndDate(Date useEndDate) {
+        this.useEndDate = useEndDate;
+    }
+
+    public String getFacilityUseType() {
+        return "Office";
     }
 }
