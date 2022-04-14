@@ -92,54 +92,52 @@ public class FacilityClient {
 
         // Use instantiation
 
-        User user1 = (User) context.getBean("user");
+        Student student = (Student) context.getBean("student");
 
-        user1.setUserFirstName("Tom");
-        user1.setUserLastName("Thumb");
-        user1.setUserId(1);
-        user1.setUserTitle("Professor");
+        student.setUserFirstName("Tom");
+        student.setUserLastName("Thumb");
+        student.setUserId(1);
+        student.setOccupancy(10);
 
-        User user2 = (User) context.getBean("user");
+        Employee employee = (Employee) context.getBean("employee");
 
-        user2.setUserFirstName("Bob");
-        user2.setUserLastName("Doe");
-        user2.setUserId(2);
-        user2.setUserTitle("Facility Manager");
+        employee.setUserFirstName("Bob");
+        employee.setUserLastName("Doe");
+        employee.setUserId(2);
+        employee.setOccupancy(1);
 
-        Type type1 = (Type) context.getBean("type");
 
-        type1.setTypeId(1);
-        type1.setFacilityUseType("Lab");
-        type1.setUseStartDate(new Date(2020, 12, 1, 13, 45));
-        type1.setUseEndDate(new Date(2020, 12, 22, 10, 15));
-        type1.setOccupancy(10);
+        Office office = (Office) context.getBean("office");
 
-        Type type2 = (Type) context.getBean("type");
+        office.setTypeId(1);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 22, 10, 15));
 
-        type2.setTypeId(2);
-        type2.setFacilityUseType("Office");
-        type2.setUseStartDate(new Date(2020, 11, 1, 10, 00));
-        type2.setUseEndDate(new Date(2020, 11, 1, 10, 45));
-        type2.setOccupancy(1);
+        ClassRoom classRoom = (ClassRoom) context.getBean("classRoom");
+
+        classRoom.setTypeId(2);
+        classRoom.setUseStartDate(new Date(2020, 11, 1, 10, 00));
+        classRoom.setUseEndDate(new Date(2020, 11, 1, 10, 45));
 
         // Associate facility use types with facility rooms
-        type1.setFacilityRoom(room1);
-        type2.setFacilityRoom(room2);
+        office.setFacilityRoom(room1);
+        classRoom.setFacilityRoom(room2);
 
         // Associate users with facility use type
-        user1.setUseType(type1);
-        user2.setUseType(type2);
+        // TODO
+        //student(classRoom);
+        //employee.(office);
 
         // Use schedule contains list of facility room users and what the facility rooms are used for
         UseSchedule schedule = (UseSchedule) context.getBean("useSchedule");
 
         // Add users to use schedule
-        schedule.assignUserToFacilityRoom(user1);
-        schedule.assignUserToFacilityRoom(user2);
+        schedule.assignUserToFacilityRoom(student);
+        schedule.assignUserToFacilityRoom(employee);
 
         // Add use type to use schedule
-        schedule.addActualUsage(type1);
-        schedule.addActualUsage(type2);
+        schedule.addActualUsage(office);
+        schedule.addActualUsage(classRoom);
 
         // Print out facility management info
         System.out.println("\tFacility Manager: \t\t\t" + manager.getManagerFirstName() + " " + manager.getManagerLastName() + "\n");
@@ -184,12 +182,11 @@ public class FacilityClient {
             System.out.println("\t\tUse: \t\t" + type.getFacilityUseType() + "\n");
             System.out.println("\t\tUse Start Date: \t\t" + type.getUseStartDate() + "\n");
             System.out.println("\t\tUse End Date: \t\t" + type.getUseEndDate() + "\n");
-            System.out.println("\t\tOccupancy: \t\t" + type.getOccupancy() + "\n");
             System.out.println("\n\t" + "+++++++++++++++++++++++++++++++++");
         }
 
-        System.out.println("\tAvailable Capacity for use type 1: \t\t" + schedule.requestAvailableCapacity(room1, type1) + "\n");
-        System.out.println("\tRoom 1 is in use for: \t\t" + schedule.timeInterval(type1) + " seconds" + "\n");
+       // System.out.println("\tAvailable Capacity for use type 1: \t\t" + schedule.requestAvailableCapacity(room1, type1) + "\n");
+       // System.out.println("\tRoom 1 is in use for: \t\t" + schedule.timeInterval(type1) + " seconds" + "\n");
         System.out.println("\n\t" + "+++++++++++++++++++++++++++++++++");
 
         /*************************************************************************************/
