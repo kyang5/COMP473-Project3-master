@@ -1,16 +1,12 @@
 package com.university.dal;
 
 import com.university.model.facility.FacilityRoom;
-import com.university.model.use.IUser;
-import com.university.model.use.Student;
-import com.university.model.use.Type;
-import com.university.model.use.User;
 
 import java.sql.*;
 
 public class UseDAO {
 
-    public User getUser(String userId) {
+   /* public User getUser(String userId) {
 
         try {
             //Get user
@@ -21,12 +17,12 @@ public class UseDAO {
             System.out.println("UseDAO: *************** Query " + selectUserQuery);
 
             //Get user
-            User user = new Student();
+            //User user = new Student();
             while(userRS.next()) {
-                user.setUserId(userRS.getInt("userID"));
-                user.setUserFirstName(userRS.getString("userFirstName"));
-                user.setUserLastName(userRS.getString("userLastName"));
-                user.setUserTitle(userRS.getString("userTitle"));
+           //     user.setUserId(userRS.getInt("userID"));
+           //     user.setUserFirstName(userRS.getString("userFirstName"));
+           //     user.setUserLastName(userRS.getString("userLastName"));
+                //user.setUserTitle(userRS.getString("userTitle"));
             }
             userRS.close();
 
@@ -45,11 +41,11 @@ public class UseDAO {
                 type.setOccupancy(typeRS.getInt("occupancy"));
             }
 
-            user.setUseType(type);
+            //user.setUseType(type);
             typeRS.close();
             st.close();
 
-            return user;
+            //return user;
         }
         catch (SQLException se) {
             System.err.println("UserDAO: Threw a SQLException retrieving the user object.");
@@ -70,16 +66,16 @@ public class UseDAO {
             userPst.setInt(1, user.getUserId());
             userPst.setString(2, user.getUserFirstName());
             userPst.setString(3, user.getUserLastName());
-            userPst.setString(4, user.getUserTitle());
+            //userPst.setString(4, user.getUserTitle());
             userPst.executeUpdate();
 
             String typeStm = "INSERT INTO Type(userID, typeId, facilityUseType, useStartDate, useEndDate, occupancy) VALUES(?, ?, ?, ?, ?, ?)";
             typePst = con.prepareStatement(typeStm);
             typePst.setInt(1, user.getUserId());
-            typePst.setInt(2, user.getUseType().getTypeId());
-            typePst.setString(3, user.getUseType().getFacilityUseType());
-            typePst.setDate(4, (Date) user.getUseType().getUseStartDate());
-            typePst.setDate(5, (Date) user.getUseType().getUseEndDate());
+            //typePst.setInt(2, user.getUseType().getTypeId());
+           // typePst.setString(3, user.getUseType().getFacilityUseType());
+           // typePst.setDate(4, (Date) user.getUseType().getUseStartDate());
+           // typePst.setDate(5, (Date) user.getUseType().getUseEndDate());
             typePst.executeUpdate();
         } catch (SQLException ex) {
 
@@ -179,5 +175,5 @@ public class UseDAO {
                 System.err.println(ex.getMessage());
             }
         }
-    }
+    }*/
 }
