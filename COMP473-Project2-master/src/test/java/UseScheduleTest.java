@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UseScheduleTest {
 
-    private List<Type> listActualUsage = new ArrayList<>();
-    private List<User> listUsers = new ArrayList<>();
+    private List<IType> listActualUsage = new ArrayList<>();
+    private List<IUser> listUsers = new ArrayList<>();
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        List<Type> listActualUsage = new ArrayList<>();
-        List<User> listUsers = new ArrayList<>();
+        List<IType> listActualUsage = new ArrayList<>();
+        List<IUser> listUsers = new ArrayList<>();
 
     }
 
@@ -30,214 +30,219 @@ class UseScheduleTest {
     @org.junit.jupiter.api.Test
     void requestAvailableCapacity() {
 
-        FacilityLocation facilityLocation = new FacilityLocation();
-        facilityLocation.setFacilityId(1);
-        facilityLocation.setName("Murphy Building");
-        facilityLocation.setAddressNumber(123);
-        facilityLocation.setStreetName("State Street");
-        facilityLocation.setCity("Chicago");
-        facilityLocation.setZipcode(123456);
+        FacilityLocation facility = new FacilityLocation();
+        facility.setFacilityId(1);
+        facility.setName("Murphy Building");
+        facility.setAddressNumber(123);
+        facility.setStreetName("State Street");
+        facility.setCity("Chicago");
+        facility.setZipcode(123456);
 
-        FacilityManager facilityManager = new FacilityManager();
-        facilityManager.setManagerId(1);
-        facilityManager.setManagerFirstName("Bob");
-        facilityManager.setManagerLastName("Doe");
-        facilityLocation.setFacilityManager(facilityManager);
+        FacilityRoom room = new FacilityRoom();
+        room.setFacilityRoomId(1);
+        room.setRoomNumber(101);
+        room.setPhoneNumber("123-456-7890");
+        room.setCapacity(10);
+        room.setFacilityLocation(facility);
+        room.setInUse(true);
 
-        FacilityRoom facilityRoom1 = new FacilityRoom();
-        facilityRoom1.setFacilityRoomId(1);
-        facilityRoom1.setPhoneNumber("123-456-7890");
-        facilityRoom1.setCapacity(10);
-        facilityRoom1.setInUse(true);
-        facilityRoom1.setFacilityLocation(facilityLocation);
+        Office office =  new Office();
+        office.setTypeId(1);
+        office.setFacilityRoom(room);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setFacilityRoom(facilityRoom1);
-        type.setUseStartDate(new Date(2020, 12, 1, 13, 45));
-        type.setUseEndDate(new Date(2020, 12, 22, 10, 15));
-        type.setOccupancy(10);
-
-        User user = new Student();
-        user.setUserFirstName("Bob");
-        user.setUserLastName("Tom");
-        user.setUserId(1);
-        user.setUserTitle("Professor");
+        Student student = new Student(office);
+        student.setUserFirstName("John");
+        student.setUserLastName("Doe");
+        student.setUserId(1);
+        student.setOccupancy(1);
 
         UseSchedule useSchedule = new UseSchedule();
-        useSchedule.requestAvailableCapacity(facilityRoom1, type);
-        useSchedule.addActualUsage(type);
-        useSchedule.assignUserToFacilityRoom(user);
+        useSchedule.requestAvailableCapacity(room, student);
+        useSchedule.addActualUsage(office);
+        useSchedule.assignUserToFacilityRoom(student);
 
-        assertEquals(10, facilityRoom1.getCapacity());
-        assertEquals(10, type.getOccupancy());
-        assertEquals(0, useSchedule.requestAvailableCapacity(facilityRoom1, type));
+        assertEquals(10, room.getCapacity());
+        assertEquals(1, student.getOccupancy());
+        assertEquals(9, useSchedule.requestAvailableCapacity(room, student));
     }
 
     @org.junit.jupiter.api.Test
     void assignUserToFacilityRoom() {
-        FacilityLocation facilityLocation = new FacilityLocation();
-        facilityLocation.setFacilityId(1);
-        facilityLocation.setName("Murphy Building");
-        facilityLocation.setAddressNumber(123);
-        facilityLocation.setStreetName("State Street");
-        facilityLocation.setCity("Chicago");
-        facilityLocation.setZipcode(123456);
+        FacilityLocation facility = new FacilityLocation();
+        facility.setFacilityId(1);
+        facility.setName("Murphy Building");
+        facility.setAddressNumber(123);
+        facility.setStreetName("State Street");
+        facility.setCity("Chicago");
+        facility.setZipcode(123456);
 
-        FacilityManager facilityManager = new FacilityManager();
-        facilityManager.setManagerId(1);
-        facilityManager.setManagerFirstName("Bob");
-        facilityManager.setManagerLastName("Doe");
-        facilityLocation.setFacilityManager(facilityManager);
-        facilityManager.addFacilities(facilityLocation);
+        FacilityRoom room = new FacilityRoom();
+        room.setFacilityRoomId(1);
+        room.setRoomNumber(101);
+        room.setPhoneNumber("123-456-7890");
+        room.setCapacity(10);
+        room.setFacilityLocation(facility);
+        room.setInUse(true);
 
-        FacilityRoom facilityRoom1 = new FacilityRoom();
-        facilityRoom1.setFacilityRoomId(1);
-        facilityRoom1.setPhoneNumber("123-456-7890");
-        facilityRoom1.setCapacity(10);
-        facilityRoom1.setInUse(true);
-        facilityRoom1.setFacilityLocation(facilityLocation);
-        facilityLocation.addFacilityRoom(facilityRoom1);
+        Office office =  new Office();
+        office.setTypeId(1);
+        office.setFacilityRoom(room);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setFacilityRoom(facilityRoom1);
-        type.setUseStartDate(new Date(2020, 12, 1, 13, 45));
-        type.setUseEndDate(new Date(2020, 12, 22, 10, 15));
-        type.setOccupancy(10);
+        Student student = new Student(office);
+        student.setUserFirstName("John");
+        student.setUserLastName("Doe");
+        student.setUserId(1);
+        student.setOccupancy(1);
 
-        User user = new Student();
-        user.setUserFirstName("Bob");
-        user.setUserLastName("Tom");
-        user.setUserId(1);
-        user.setUserTitle("Professor");
-        user.setUseType(type);
+        listUsers.add(student);
 
-        listUsers.add(user);
-
-        assertTrue(listUsers.contains(user));
+        assertEquals("John", student.getUserFirstName());
+        assertEquals("Doe", student.getUserLastName());
+        assertEquals(1, student.getUserId());
+        assertEquals(1, student.getOccupancy());
+        assertTrue(listUsers.contains(student));
     }
 
     @org.junit.jupiter.api.Test
     void vacateFacilityRoom() {
-        FacilityLocation facilityLocation = new FacilityLocation();
-        facilityLocation.setFacilityId(1);
-        facilityLocation.setName("Murphy Building");
-        facilityLocation.setAddressNumber(123);
-        facilityLocation.setStreetName("State Street");
-        facilityLocation.setCity("Chicago");
-        facilityLocation.setZipcode(123456);
+        FacilityLocation facility = new FacilityLocation();
+        facility.setFacilityId(1);
+        facility.setName("Murphy Building");
+        facility.setAddressNumber(123);
+        facility.setStreetName("State Street");
+        facility.setCity("Chicago");
+        facility.setZipcode(123456);
 
-        FacilityManager facilityManager = new FacilityManager();
-        facilityManager.setManagerId(1);
-        facilityManager.setManagerFirstName("Bob");
-        facilityManager.setManagerLastName("Doe");
-        facilityLocation.setFacilityManager(facilityManager);
-        facilityManager.addFacilities(facilityLocation);
+        FacilityRoom room = new FacilityRoom();
+        room.setFacilityRoomId(1);
+        room.setRoomNumber(101);
+        room.setPhoneNumber("123-456-7890");
+        room.setCapacity(10);
+        room.setFacilityLocation(facility);
+        room.setInUse(true);
 
-        FacilityRoom facilityRoom1 = new FacilityRoom();
-        facilityRoom1.setFacilityRoomId(1);
-        facilityRoom1.setPhoneNumber("123-456-7890");
-        facilityRoom1.setCapacity(10);
-        facilityRoom1.setInUse(true);
-        facilityRoom1.setFacilityLocation(facilityLocation);
-        facilityLocation.addFacilityRoom(facilityRoom1);
+        Office office =  new Office();
+        office.setTypeId(1);
+        office.setFacilityRoom(room);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setFacilityRoom(facilityRoom1);
+        Student student = new Student(office);
+        student.setUserFirstName("John");
+        student.setUserLastName("Doe");
+        student.setUserId(1);
+        student.setOccupancy(1);
 
-        User user = new Student();
-        user.setUserFirstName("Bob");
-        user.setUserLastName("Tom");
-        user.setUserId(1);
-        user.setUserTitle("Professor");
-        user.setUseType(type);
-
-        listUsers.add(user);
-        listUsers.remove(user);
+        listUsers.add(student);
+        listUsers.remove(student);
 
         assertTrue(listUsers.isEmpty());
     }
 
     @org.junit.jupiter.api.Test
     void addActualUsage() {
-        FacilityLocation facilityLocation = new FacilityLocation();
-        facilityLocation.setFacilityId(1);
-        facilityLocation.setName("Murphy Building");
-        facilityLocation.setAddressNumber(123);
-        facilityLocation.setStreetName("State Street");
-        facilityLocation.setCity("Chicago");
-        facilityLocation.setZipcode(123456);
+        FacilityLocation facility = new FacilityLocation();
+        facility.setFacilityId(1);
+        facility.setName("Murphy Building");
+        facility.setAddressNumber(123);
+        facility.setStreetName("State Street");
+        facility.setCity("Chicago");
+        facility.setZipcode(123456);
 
-        FacilityManager facilityManager = new FacilityManager();
-        facilityManager.setManagerId(1);
-        facilityManager.setManagerFirstName("Bob");
-        facilityManager.setManagerLastName("Doe");
-        facilityLocation.setFacilityManager(facilityManager);
+        FacilityRoom room = new FacilityRoom();
+        room.setFacilityRoomId(1);
+        room.setRoomNumber(101);
+        room.setPhoneNumber("123-456-7890");
+        room.setCapacity(10);
+        room.setFacilityLocation(facility);
+        room.setInUse(true);
 
-        FacilityRoom facilityRoom1 = new FacilityRoom();
-        facilityRoom1.setFacilityRoomId(1);
-        facilityRoom1.setPhoneNumber("123-456-7890");
-        facilityRoom1.setCapacity(10);
-        facilityRoom1.setInUse(true);
-        facilityRoom1.setFacilityLocation(facilityLocation);
+        Office office =  new Office();
+        office.setTypeId(1);
+        office.setFacilityRoom(room);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setFacilityRoom(facilityRoom1);
+        listActualUsage.add(office);
 
-        listActualUsage.add(type);
-
-        assertTrue(listActualUsage.contains(type));
+        assertEquals(1, office.getTypeId());
+        assertEquals(room, office.getFacilityRoom());
+        assertTrue(listActualUsage.contains(office));
     }
 
     @org.junit.jupiter.api.Test
     void removeActualUsage() {
-        FacilityLocation facilityLocation = new FacilityLocation();
-        facilityLocation.setFacilityId(1);
-        facilityLocation.setName("Murphy Building");
-        facilityLocation.setAddressNumber(123);
-        facilityLocation.setStreetName("State Street");
-        facilityLocation.setCity("Chicago");
-        facilityLocation.setZipcode(123456);
+        FacilityLocation facility = new FacilityLocation();
+        facility.setFacilityId(1);
+        facility.setName("Murphy Building");
+        facility.setAddressNumber(123);
+        facility.setStreetName("State Street");
+        facility.setCity("Chicago");
+        facility.setZipcode(123456);
 
-        FacilityManager facilityManager = new FacilityManager();
-        facilityManager.setManagerId(1);
-        facilityManager.setManagerFirstName("Bob");
-        facilityManager.setManagerLastName("Doe");
-        facilityLocation.setFacilityManager(facilityManager);
+        FacilityRoom room = new FacilityRoom();
+        room.setFacilityRoomId(1);
+        room.setRoomNumber(101);
+        room.setPhoneNumber("123-456-7890");
+        room.setCapacity(10);
+        room.setFacilityLocation(facility);
+        room.setInUse(true);
 
-        FacilityRoom facilityRoom1 = new FacilityRoom();
-        facilityRoom1.setFacilityRoomId(1);
-        facilityRoom1.setPhoneNumber("123-456-7890");
-        facilityRoom1.setCapacity(10);
-        facilityRoom1.setFacilityLocation(facilityLocation);
+        Office office =  new Office();
+        office.setTypeId(1);
+        office.setFacilityRoom(room);
+        office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+        office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setFacilityRoom(facilityRoom1);
-
-        listActualUsage.add(type);
-        listActualUsage.remove(type);
+        listActualUsage.add(office);
+        listActualUsage.remove(office);
 
         assertTrue(listActualUsage.isEmpty());
     }
 
-    @org.junit.jupiter.api.Test
+   @org.junit.jupiter.api.Test
     void timeInterval() {
 
-        Type type = new Type();
-        type.setFacilityUseType("Lab");
-        type.setUseStartDate(new Date(2020, 12, 1, 13, 45));
-        type.setUseEndDate(new Date(2020, 12, 22, 10, 15));
-        type.setOccupancy(10);
+       FacilityLocation facility = new FacilityLocation();
+       facility.setFacilityId(1);
+       facility.setName("Murphy Building");
+       facility.setAddressNumber(123);
+       facility.setStreetName("State Street");
+       facility.setCity("Chicago");
+       facility.setZipcode(123456);
 
-        UseSchedule useSchedule = new UseSchedule();
+       FacilityRoom room = new FacilityRoom();
+       room.setFacilityRoomId(1);
+       room.setRoomNumber(101);
+       room.setPhoneNumber("123-456-7890");
+       room.setCapacity(10);
+       room.setFacilityLocation(facility);
+       room.setInUse(true);
 
-        long result = useSchedule.timeInterval(type);
+       Office office =  new Office();
+       office.setTypeId(1);
+       office.setFacilityRoom(room);
+       office.setUseStartDate(new Date(2020, 12, 1, 13, 45));
+       office.setUseEndDate(new Date(2020, 12, 1, 14, 45));
 
-        assertEquals(1801800000, result);
+       Student student = new Student(office);
+       student.setUserFirstName("John");
+       student.setUserLastName("Doe");
+       student.setUserId(1);
+       student.setOccupancy(1);
+
+       UseSchedule useSchedule = new UseSchedule();
+       useSchedule.requestAvailableCapacity(room, student);
+       useSchedule.addActualUsage(office);
+       useSchedule.assignUserToFacilityRoom(student);
+
+        long result = useSchedule.timeInterval(office);
+
+        assertEquals(3600000, result);
     }
 
 }
