@@ -11,4 +11,5 @@ public interface IUser {
     IType getUseType();
     int getOccupancy();
     void setOccupancy(int occupancy);
+    void update(boolean inUse);
 }

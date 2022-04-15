@@ -50,4 +50,8 @@ public class Employee implements IUser{
     public void setOccupancy(int occupancy) {
         this.occupancy = occupancy;
     }
+
+    public void update(boolean inUse){
+        System.out.println("Facility in Use:" + inUse);
+    }
 }
