@@ -53,7 +53,6 @@ public class Student implements IUser{
     }
 
     public void update(boolean inUse, int roomNumber){
-        System.out.println("Facility in Use:" + inUse);
-        System.out.println("Room in Use:" + roomNumber);
+        System.out.println("Room " + roomNumber + " is currently in use: " + inUse );
     }
 }
