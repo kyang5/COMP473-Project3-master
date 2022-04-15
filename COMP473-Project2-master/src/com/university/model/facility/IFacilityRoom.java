@@ -1,5 +1,9 @@
 package com.university.model.facility;
 
+import com.university.model.use.IUser;
+
+import java.util.List;
+
 public interface IFacilityRoom {
     String getPhoneNumber();
     void setPhoneNumber(String phoneNumber);
@@ -13,4 +17,11 @@ public interface IFacilityRoom {
     void setFacilityLocation(IFacilityLocation facilityLocation);
     boolean isInUse();
     void setInUse(boolean inUse);
+    // get list of all users who want to be notified if a room is available
+    List<IUser> getUsers();
+    void setUsers(List<IUser> users);
+    void subscribe(IUser user);
+    void unsubscribe(IUser user);
+    // send notification message to users who subscribed for room availability notification
+    void notifyAllUsers();
 }
