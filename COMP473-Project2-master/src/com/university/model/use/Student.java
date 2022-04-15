@@ -52,7 +52,8 @@ public class Student implements IUser{
         this.occupancy = occupancy;
     }
 
-    public void update(boolean inUse){
+    public void update(boolean inUse, int roomNumber){
         System.out.println("Facility in Use:" + inUse);
+        System.out.println("Room in Use:" + roomNumber);
     }
 }

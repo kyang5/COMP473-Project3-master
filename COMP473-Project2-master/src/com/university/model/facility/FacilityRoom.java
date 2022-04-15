@@ -79,9 +79,9 @@ public class FacilityRoom implements IFacilityRoom{
         users.remove(user);
     }
 
-    public void notifyAllUsers(boolean inUse) {
+    public void notifyAllUsers(boolean inUse, int roomNumber) {
         for (IUser user: users) {
-            user.update(inUse);
+            user.update(inUse, roomNumber);
         }
     }
 }
