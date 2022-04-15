@@ -51,7 +51,7 @@ public class Employee implements IUser{
         this.occupancy = occupancy;
     }
 
-    public void update(boolean inUse){
-        System.out.println("Facility in Use:" + inUse);
+    public void update(boolean inUse, int roomNumber){
+        System.out.println("Room " + roomNumber + " is currently in use: " + inUse );
     }
 }
