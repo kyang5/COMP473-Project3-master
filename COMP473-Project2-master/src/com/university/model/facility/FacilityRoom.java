@@ -80,10 +80,8 @@ public class FacilityRoom implements IFacilityRoom{
     }
 
     public void notifyAllUsers(boolean inUse, int roomNumber) {
-        for (IUser user: users) {
-            if (!isInUse()) {
+        for (IUser user : users) {
                 user.update(inUse, roomNumber);
-            }
         }
     }
 }
