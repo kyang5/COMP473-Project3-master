@@ -23,5 +23,5 @@ public interface IFacilityRoom {
     void subscribe(IUser user);
     void unsubscribe(IUser user);
     // send notification message to users who subscribed for room availability notification
-    void notifyAllUsers(boolean inUse);
+    void notifyAllUsers(boolean inUse, int roomNumber);
 }
