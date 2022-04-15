@@ -1,5 +1,10 @@
 package com.university.model.facility;
 
+import com.university.model.use.IUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FacilityRoom implements IFacilityRoom{
     private String phoneNumber;
     private int facilityRoomId;
@@ -7,6 +12,7 @@ public class FacilityRoom implements IFacilityRoom{
     private int capacity;
     private IFacilityLocation facilityLocation;
     private boolean inUse;
+    private List<IUser> users = new ArrayList<>();
 
 
     public String getPhoneNumber() {
@@ -57,6 +63,23 @@ public class FacilityRoom implements IFacilityRoom{
         this.inUse = inUse;
     }
 
+    public List<IUser> getUsers() {
+        return users;
+    }
 
+    public void setUsers(List<IUser> users) {
+        this.users = users;
+    }
 
+    public void subscribe(IUser user) {
+        users.add(user);
+    }
+
+    public void unsubscribe(IUser user) {
+        users.remove(user);
+    }
+
+    public void notifyAllUsers() {
+
+    }
 }
