@@ -15,4 +15,5 @@ public interface IOrder {
     void setOrderDate(Date orderDate);
     IFacilityRoom getFacilityRoom();
     void setFacilityRoom(IFacilityRoom facilityRoom);
+    String accept(ILog maintenanceLog);
 }

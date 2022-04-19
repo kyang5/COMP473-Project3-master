@@ -116,4 +116,43 @@ public class MaintenanceLog implements ILog {
                 "<facilityRoom>" + inspection.getFacilityRoom() + "</facilityRoom>" + "\n" +
                 "</inspection>";
     }
+    public String exportRequest(IRequest... args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\\n");
+        for (IRequest request: args) {
+            stringBuilder.append(request.accept(this)).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String visitRequest(IRequest request) {
+        return "<request>" + "\n" +
+                "<requestID>" + request.getRequestID() + "</requestID>" + "\n" +
+                "<requestDate>" + request.getRequestDate() + "</requestDate>" + "\n" +
+                "<requestStatus>" + request.getRequestStatus() + "</requestStatus>" + "\n" +
+                "<requestorID>" + request.getRequestorID() + "</requestorID>" + "\n" +
+                "<requestType>" + request.getRequestType() + "</requestType>" + "\n" +
+                "<problem>" + request.getProblem() + "</problem>" + "\n" +
+                "<facilityRoom" + request.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "</request>";
+    }
+    public String exportOrder(IOrder... args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\\n");
+        for (IOrder order: args) {
+            stringBuilder.append(order.accept(this)).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String visitOrder(IOrder order) {
+        return "<order>" + "\n" +
+                "<cost>" + order.getCost() + "</cost>" + "\n" +
+                "<orderType>" + order.getOrderType() + "</orderType>" + "\n" +
+                "<orderID>" + order.getOrderID() + "</orderID>" + "\n" +
+                "<orderDate>" + order.getOrderDate() + "</orderDate>" + "\n" +
+                "<facilityRoom>" + order.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "</order>";
+    }
+
 }

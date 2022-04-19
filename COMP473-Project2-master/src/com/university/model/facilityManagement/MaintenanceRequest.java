@@ -56,5 +56,8 @@ public class MaintenanceRequest implements IRequest {
         this.facilityRoom = facilityRoom;
     }
 
-
+    @Override
+    public String accept(ILog maintenanceLog) {
+        return maintenanceLog.visitRequest(this);
+    }
 }

@@ -19,4 +19,5 @@ public interface IRequest {
     void setRequestStatus(String requestStatus);
     IFacilityRoom getFacilityRoom();
     void setFacilityRoom(IFacilityRoom facilityRoom);
+    String accept(ILog maintenanceLog);
 }

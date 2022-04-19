@@ -26,4 +26,6 @@ public interface ILog {
     double calcMaintenanceCostForFacility(IFacilityLocation facilityLocation);
     double calcProblemRateForFacility(IFacilityLocation facilityLocation);
     String visitInspection(IInspection inspection);
+    String visitRequest(IRequest request);
+    String visitOrder(IOrder order);
 }

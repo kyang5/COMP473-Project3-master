@@ -52,4 +52,8 @@ public class MaintenanceOrder implements IOrder {
         this.facilityRoom = facilityRoom;
     }
 
+    @Override
+    public String accept(ILog maintenanceLog) {
+        return maintenanceLog.visitOrder(this);
+    }
 }
