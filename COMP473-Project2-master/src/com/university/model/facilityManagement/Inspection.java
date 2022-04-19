@@ -55,8 +55,10 @@ public class Inspection implements IInspection {
     }
     public void setInspectorList(List <IInspector> inspectorList){ this.inspectorList = inspectorList;}
 
-
-
+    @Override
+    public String accept(ILog maintenanceLog) {
+        return maintenanceLog.visitInspection(this);
+    }
 }
 
 
