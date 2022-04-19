@@ -4,6 +4,7 @@ import com.university.model.facility.IFacilityLocation;
 import com.university.model.facility.IFacilityRoom;
 
 import java.util.*;
+
 public class MaintenanceLog implements ILog {
     private List<IOrder> maintenanceList = new ArrayList<>();
     private List<ISchedule> scheduleList = new ArrayList<>();
@@ -96,5 +97,23 @@ public class MaintenanceLog implements ILog {
             }
         }
         return totalProblem/totalRooms;
+    }
+
+    public String exportInspection(IInspection... args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\\n");
+        for (IInspection inspection: args) {
+            stringBuilder.append(inspection.accept(this)).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String visitInspection(IInspection inspection) {
+        return "<inspection>" + "\n" +
+                "<inspectionID>" + inspection.getInspectionID() + "</inspectionID>" + "\n" +
+                "<inspectionName>" + inspection.getInspectionName() + "</inspectionName>" + "\n" +
+                "<inspector>" + inspection.getInspector() + "</inspector>" + "\n" +
+                "<facilityRoom>" + inspection.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "</inspection>";
     }
 }
