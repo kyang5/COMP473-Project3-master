@@ -25,4 +25,5 @@ public interface ILog {
     void setRequestList(List<IRequest> requestList);
     double calcMaintenanceCostForFacility(IFacilityLocation facilityLocation);
     double calcProblemRateForFacility(IFacilityLocation facilityLocation);
+    String visitInspection(IInspection inspection);
 }
