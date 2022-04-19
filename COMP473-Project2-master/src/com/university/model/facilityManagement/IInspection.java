@@ -17,4 +17,5 @@ public interface IInspection {
     void setInspector(IInspector inspector);
     List<IInspector> getInspectorList();
     void setInspectorList(List <IInspector> inspectorList);
+    String accept(ILog maintenanceLog);
 }
