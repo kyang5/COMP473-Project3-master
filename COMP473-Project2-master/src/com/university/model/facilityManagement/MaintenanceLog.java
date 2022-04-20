@@ -169,10 +169,11 @@ public class MaintenanceLog implements ILog {
 
     public String visitSchedule(ISchedule schedule) {
         return "<schedule>" + "\n" +
-                "<scheduleID" + schedule.getScheduleID() + "</scheduleID>" + "\n" +
+                "<scheduleID>" + schedule.getScheduleID() + "</scheduleID>" + "\n" +
                 "<maintenanceStartDate>" + schedule.getMaintenanceStartDate() + "</maintenanceStartDate>" + "\n" +
                 "<maintenanceEndDate>" + schedule.getMaintenanceEndDate() + "</maintenanceEndDate>" + "\n" +
-                "<maintenanceWorker>" + schedule.getMaintenanceWorker() + "</maintenanceWorker>" + "\n" +
-                "<facilityRoom>" + schedule.getFacilityRoom() + "</facilityRoom>" + "\n";
+                "<maintenanceWorker>" + schedule.getMaintenanceWorker().getMaintFirstName() + schedule.getMaintenanceWorker().getMaintLastName() + "</maintenanceWorker>" + "\n" +
+                "<facilityLocation>" + schedule.getFacilityRoom().getFacilityLocation() + "</facilityLocation>" + "\n" +
+                "<facilityRoom>" + schedule.getFacilityRoom().getRoomNumber() + "</facilityRoom>" + "\n";
     }
 }
