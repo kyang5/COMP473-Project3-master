@@ -112,8 +112,10 @@ public class MaintenanceLog implements ILog {
         return "<inspection>" + "\n" +
                 "<inspectionID>" + inspection.getInspectionID() + "</inspectionID>" + "\n" +
                 "<inspectionName>" + inspection.getInspectionName() + "</inspectionName>" + "\n" +
-                "<inspector>" + inspection.getInspector() + "</inspector>" + "\n" +
-                "<facilityRoom>" + inspection.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "<inspectorID>" + inspection.getInspector().getInspectorID() + "</inspectorID>" + "\n" +
+                "<inspector>" + inspection.getInspector().getInspectorFirstName() + inspection.getInspector().getInspectorLastName() + "</inspector>" + "\n" +
+                "<facilityLocation>" + inspection.getFacilityRoom().getFacilityLocation().getName() + "</facilityLocation>" + "\n" +
+                "<facilityRoomNumber>" + inspection.getFacilityRoom().getRoomNumber() + "</facilityRoom>" + "\n" +
                 "</inspection>";
     }
     public String exportRequest(IRequest... args) {
@@ -133,7 +135,7 @@ public class MaintenanceLog implements ILog {
                 "<requestorID>" + request.getRequestorID() + "</requestorID>" + "\n" +
                 "<requestType>" + request.getRequestType() + "</requestType>" + "\n" +
                 "<problem>" + request.getProblem() + "</problem>" + "\n" +
-                "<facilityRoom" + request.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "<roomNumber>" + request.getFacilityRoom() + "</roomNumber>" + "\n" +
                 "</request>";
     }
     public String exportOrder(IOrder... args) {
@@ -151,7 +153,8 @@ public class MaintenanceLog implements ILog {
                 "<orderType>" + order.getOrderType() + "</orderType>" + "\n" +
                 "<orderID>" + order.getOrderID() + "</orderID>" + "\n" +
                 "<orderDate>" + order.getOrderDate() + "</orderDate>" + "\n" +
-                "<facilityRoom>" + order.getFacilityRoom() + "</facilityRoom>" + "\n" +
+                "<facilityLocation>" + order.getFacilityRoom().getFacilityLocation().getName() + "</facilityLocation>" + "\n" +
+                "<roomNumber>" + order.getFacilityRoom().getRoomNumber() + "</roomNumber>" + "\n" +
                 "</order>";
     }
 
