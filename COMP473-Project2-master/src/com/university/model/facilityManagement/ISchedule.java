@@ -16,4 +16,5 @@ public interface ISchedule {
     IFacilityRoom getFacilityRoom();
     void setFacilityRoom(IFacilityRoom facilityRoom);
     long calcDownTimeForFacilityRoom(Date maintenanceStartDate, Date maintenanceEndDate);
+    String accept(ILog maintenanceLog);
 }
