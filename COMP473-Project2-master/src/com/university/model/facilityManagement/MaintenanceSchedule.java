@@ -50,5 +50,10 @@ public class MaintenanceSchedule implements ISchedule {
 
         return endDate - startDate;
     }
+
+    @Override
+    public String accept(ILog maintenanceLog) {
+        return maintenanceLog.visitSchedule(this);
+    }
 }
 
