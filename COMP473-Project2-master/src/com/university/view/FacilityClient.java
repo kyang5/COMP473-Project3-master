@@ -299,6 +299,5 @@ public class FacilityClient {
         System.out.println("\t Total Cost for Maintenance: \t\t" + log1.calcMaintenanceCostForFacility(facility1) + "\n");
         System.out.println("\t Problem Rate: \t\t" + log1.calcProblemRateForFacility(facility1) + "\n");
         System.out.println("\n\t" + "+++++++++++++++++++++++++++++++++");
-
     }
 }
