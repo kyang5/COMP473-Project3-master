@@ -28,4 +28,5 @@ public interface ILog {
     String visitInspection(IInspection inspection);
     String visitRequest(IRequest request);
     String visitOrder(IOrder order);
+    String visitSchedule(ISchedule schedule);
 }
