@@ -101,7 +101,7 @@ public class MaintenanceLog implements ILog {
 
     public String exportInspection(IInspection... args) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\\n");
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\n");
         for (IInspection inspection: args) {
             stringBuilder.append(inspection.accept(this)).append("\n");
         }
@@ -155,4 +155,21 @@ public class MaintenanceLog implements ILog {
                 "</order>";
     }
 
+    public String exportSchedule(ISchedule... args) {
+        StringBuilder stringBuilder1 = new StringBuilder();
+        stringBuilder1.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\n");
+        for (ISchedule schedule: args) {
+            stringBuilder1.append(schedule.accept(this)).append("\n");
+        }
+        return stringBuilder1.toString();
+    }
+
+    public String visitSchedule(ISchedule schedule) {
+        return "<schedule>" + "\n" +
+                "<scheduleID" + schedule.getScheduleID() + "</scheduleID>" + "\n" +
+                "<maintenanceStartDate>" + schedule.getMaintenanceStartDate() + "</maintenanceStartDate>" + "\n" +
+                "<maintenanceEndDate>" + schedule.getMaintenanceEndDate() + "</maintenanceEndDate>" + "\n" +
+                "<maintenanceWorker>" + schedule.getMaintenanceWorker() + "</maintenanceWorker>" + "\n" +
+                "<facilityRoom>" + schedule.getFacilityRoom() + "</facilityRoom>" + "\n";
+    }
 }
