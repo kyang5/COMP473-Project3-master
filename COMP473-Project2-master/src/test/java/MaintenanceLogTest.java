@@ -69,7 +69,7 @@ class MaintenanceLogTest {
         inspection.setFacilityRoom(facilityRoom1);
 
         inspectionList.add(inspection);
-        assertEquals(true, inspectionList.contains(inspection));
+        assertTrue(inspectionList.contains(inspection));
     }
 
 
@@ -128,7 +128,7 @@ class MaintenanceLogTest {
         request.setRequestStatus("Open");
         request.setFacilityRoom(facilityRoom1);
         requestList.add(request);
-        assertEquals(true, requestList.contains(request));
+        assertTrue(requestList.contains(request));
     }
 
     @org.junit.jupiter.api.Test
@@ -146,7 +146,7 @@ class MaintenanceLogTest {
         request.setRequestStatus("Open");
         request.setFacilityRoom(facilityRoom1);
         requestList.remove(request);
-        assertEquals(true, requestList.isEmpty());
+        assertTrue(requestList.isEmpty());
     }
 
     @org.junit.jupiter.api.Test
@@ -169,7 +169,7 @@ class MaintenanceLogTest {
         schedule.setFacilityRoom(facilityRoom1);
 
         scheduleList.add(schedule);
-        assertEquals(true, scheduleList.contains(schedule));
+        assertTrue(scheduleList.contains(schedule));
     }
 
     @org.junit.jupiter.api.Test
@@ -192,7 +192,7 @@ class MaintenanceLogTest {
         schedule.setFacilityRoom(facilityRoom1);
 
         scheduleList.remove(schedule);
-        assertEquals(true, scheduleList.isEmpty());
+        assertTrue(scheduleList.isEmpty());
     }
 
     @org.junit.jupiter.api.Test
@@ -210,7 +210,7 @@ class MaintenanceLogTest {
         order.setFacilityRoom(facilityRoom1);
 
         maintenanceList.add(order);
-        assertEquals(true, maintenanceList.contains(order));
+        assertTrue(maintenanceList.contains(order));
     }
 
     @org.junit.jupiter.api.Test
@@ -228,7 +228,7 @@ class MaintenanceLogTest {
         order.setFacilityRoom(facilityRoom1);
 
         maintenanceList.remove(order);
-        assertEquals(true, maintenanceList.isEmpty());
+        assertTrue(maintenanceList.isEmpty());
     }
 
     @org.junit.jupiter.api.Test
@@ -414,6 +414,545 @@ class MaintenanceLogTest {
         double result = maintenanceLog.calcProblemRateForFacility(facilityLocation);
 
         assertEquals(0.5, result);
+    }
+
+    @org.junit.jupiter.api.Test
+    void exportInspection() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.exportInspection(inspection);
+
+        assertTrue(result.contains("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void visitInspection() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.visitInspection(inspection);
+
+        assertTrue(result.contains("<inspectionID>1</inspectionID>"));
+
+    }
+
+    @org.junit.jupiter.api.Test
+    void exportRequest() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.exportRequest(request);
+
+        assertTrue(result.contains("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void visitRequest() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.visitRequest(request);
+
+        assertTrue(result.contains("<requestType>Plumbing</requestType>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void exportOrder() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.exportOrder(order);
+
+        assertTrue(result.contains("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void visitOrder() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.visitOrder(order);
+
+        assertTrue(result.contains("<cost>100.0</cost>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void exportSchedule() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.exportSchedule(schedule);
+
+        assertTrue(result.contains("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void visitSchedule() {
+        FacilityLocation facilityLocation = new FacilityLocation();
+        facilityLocation.setFacilityId(1);
+        facilityLocation.setName("Murphy Building");
+        facilityLocation.setAddressNumber(123);
+        facilityLocation.setStreetName("State Street");
+        facilityLocation.setCity("Chicago");
+        facilityLocation.setZipcode(123456);
+
+        FacilityManager facilityManager = new FacilityManager();
+        facilityManager.setManagerId(1);
+        facilityManager.setManagerFirstName("Bob");
+        facilityManager.setManagerLastName("Doe");
+        facilityLocation.setFacilityManager(facilityManager);
+
+        FacilityRoom facilityRoom1 = new FacilityRoom();
+        facilityRoom1.setFacilityRoomId(1);
+        facilityRoom1.setPhoneNumber("123-456-7890");
+        facilityRoom1.setCapacity(10);
+        facilityRoom1.setFacilityLocation(facilityLocation);
+
+        Inspector inspector = new Inspector();
+        inspector.setInspectorID(1);
+        inspector.setInspectorFirstName("Dan");
+        inspector.setInspectorLastName("Tan");
+        inspector.setInspectorTitle("Fire Safety Inspector");
+
+        Inspection inspection = new Inspection();
+        inspection.setInspectionID(1);
+        inspection.setInspectionName("Fire safety");
+        inspection.setInspector(inspector);
+        inspection.setFacilityRoom(facilityRoom1);
+
+        MaintenanceRequest request = new MaintenanceRequest();
+        request.setRequestType("Plumbing");
+        request.setRequestID(1);
+        request.setRequestorID(1);
+        request.setProblem("Leaking pipes");
+        request.setRequestStatus("Open");
+        request.setFacilityRoom(facilityRoom1);
+
+        MaintenanceWorker worker = new MaintenanceWorker();
+        worker.setMaintWorkerID(1);
+        worker.setMaintFirstName("Bob");
+        worker.setMaintLastName("Bob");
+        worker.setMaintTitle("Senior Electrician");
+
+        MaintenanceSchedule schedule = new MaintenanceSchedule();
+        schedule.setScheduleID(1);
+        schedule.setMaintenanceEndDate(new Date(2021, 02, 02, 8, 30));
+        schedule.setMaintenanceStartDate(new Date(2021, 01, 25, 9,56));
+        schedule.setMaintenanceWorker(worker);
+        schedule.setFacilityRoom(facilityRoom1);
+
+        MaintenanceOrder order = new MaintenanceOrder();
+        order.setOrderType("Urgent");
+        order.setOrderID(1);
+        order.setOrderDate(new Date(2021, 03, 01, 16, 45));
+        order.setCost(100.0);
+        order.setFacilityRoom(facilityRoom1);
+
+        MaintenanceLog maintenanceLog = new MaintenanceLog();
+        String result = maintenanceLog.visitSchedule(schedule);
+        System.out.println(result);
+
+        assertTrue(result.contains("<scheduleID>1</scheduleID>"));
     }
 
 }
