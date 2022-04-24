@@ -70,7 +70,7 @@ public class FacilityRoom implements IFacilityRoom{
     public void setUsers(List<IUser> users) {
         this.users = users;
     }
-
+//Implementation of the Observer Pattern.
     public void subscribe(IUser user) {
         users.add(user);
     }
