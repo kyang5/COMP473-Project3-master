@@ -47,4 +47,5 @@ public class Office implements IType{
     public String getFacilityUseType() {
         return "Office";
     }
+    //See the IType interface for its implementation and interaction with the Bridge Pattern.
 }

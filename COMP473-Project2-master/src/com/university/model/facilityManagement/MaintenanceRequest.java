@@ -55,7 +55,7 @@ public class MaintenanceRequest implements IRequest {
     public void setFacilityRoom(IFacilityRoom facilityRoom){
         this.facilityRoom = facilityRoom;
     }
-
+    //Implementation of Visitor Pattern with the ILog as an interface and Maintenance Log exports the results.
     @Override
     public String accept(ILog maintenanceLog) {
         return maintenanceLog.visitRequest(this);

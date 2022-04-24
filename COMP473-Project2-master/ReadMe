@@ -23,14 +23,18 @@ respectively related lists.
 
 Pattern Implementations
 ==========================
-The bridge pattern was implemented in the the use package, specifically between the IUser interface and the IType interface.
-The classes that implements the IUser interface are Employee and Student. The classes that implements the IType interface
-are: ClassRoom, Lab, and Office. This implementation of the pattern allows for any user type to utilize any type as the user's
-use type attribute.
+The bridge pattern was implemented in the the use package, specifically between the IUser interface
+and the IType interface.The classes that implements the IUser interface are Employee and Student. The classes that
+implements the IType interface are: ClassRoom, Lab, and Office. This implementation of the pattern allows for any user
+type to utilize any type as the user's use type attribute.
 
 The observer pattern was implemented between the FacilityRoom in the facility package and the user in the use package.
 This pattern allows for a user to be notified when a facility room is vacant and available for use.
 
-The visitor pattern was implemented in the facilityManagement package. The pattern allows for the MaintenanceLog to export
-the maintenance schedules, maintenance orders, maintenance requests and the maintenance inspections to be exported as a
-XML file.
+The visitor pattern was implemented in the facilityManagement package. The pattern allows for the MaintenanceLog to
+export the maintenance schedules, maintenance orders, maintenance requests and the maintenance inspections to be
+exported as a XML file.
+
+There are some unresolved errors in the beans, but we spoke with Sophie and the Professor and the latter said that the
+errors wouldn't discount from our overall grade.
+The unit tests work as expected.

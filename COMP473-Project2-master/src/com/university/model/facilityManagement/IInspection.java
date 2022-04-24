@@ -18,4 +18,5 @@ public interface IInspection {
     List<IInspector> getInspectorList();
     void setInspectorList(List <IInspector> inspectorList);
     String accept(ILog maintenanceLog);
+    //Implementation of Visitor Pattern.
 }

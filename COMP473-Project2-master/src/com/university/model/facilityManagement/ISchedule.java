@@ -17,4 +17,5 @@ public interface ISchedule {
     void setFacilityRoom(IFacilityRoom facilityRoom);
     long calcDownTimeForFacilityRoom(Date maintenanceStartDate, Date maintenanceEndDate);
     String accept(ILog maintenanceLog);
+    //Implementation of Visitor Pattern.
 }

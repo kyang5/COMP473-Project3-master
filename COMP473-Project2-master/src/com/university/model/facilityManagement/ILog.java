@@ -25,6 +25,8 @@ public interface ILog {
     void setRequestList(List<IRequest> requestList);
     double calcMaintenanceCostForFacility(IFacilityLocation facilityLocation);
     double calcProblemRateForFacility(IFacilityLocation facilityLocation);
+   //The following methods are an implementation of the Visitor Pattern. (See MaintenanceLog, MaintenanceSchedule,
+    //MaintenanceOrder, MaintenanceRequest, and Inspection).
     String visitInspection(IInspection inspection);
     String visitRequest(IRequest request);
     String visitOrder(IOrder order);

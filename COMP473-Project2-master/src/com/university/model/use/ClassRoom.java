@@ -56,4 +56,5 @@ public class ClassRoom implements IType{
     public String getFacilityUseType() {
         return "Class Room";
     }
+    //See the IType interface for its implementation and interaction with the Bridge Pattern.
 }

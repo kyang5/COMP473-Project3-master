@@ -20,4 +20,5 @@ public interface IRequest {
     IFacilityRoom getFacilityRoom();
     void setFacilityRoom(IFacilityRoom facilityRoom);
     String accept(ILog maintenanceLog);
+    //Implementation of Visitor Pattern.
 }

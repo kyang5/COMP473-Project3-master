@@ -50,7 +50,7 @@ public class MaintenanceSchedule implements ISchedule {
 
         return endDate - startDate;
     }
-
+    //Implementation of Visitor Pattern with the ILog as an interface and Maintenance Log exports the results.
     @Override
     public String accept(ILog maintenanceLog) {
         return maintenanceLog.visitSchedule(this);

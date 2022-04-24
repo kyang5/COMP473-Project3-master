@@ -56,5 +56,6 @@ public class Lab implements IType{
     public String getFacilityUseType() {
         return "Lab";
     }
+    //See the IType interface for its implementation and interaction with the Bridge Pattern.
 
 }

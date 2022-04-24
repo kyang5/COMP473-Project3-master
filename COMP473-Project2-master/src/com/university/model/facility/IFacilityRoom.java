@@ -22,6 +22,7 @@ public interface IFacilityRoom {
     void setUsers(List<IUser> users);
     void subscribe(IUser user);
     void unsubscribe(IUser user);
-    // send notification message to users who subscribed for room availability notification
+    // send notification message to users who subscribed for room availability notification and implements
+    //the Observer Pattern.
     void notifyAllUsers(boolean inUse, int roomNumber);
 }

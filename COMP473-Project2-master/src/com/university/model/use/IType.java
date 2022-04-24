@@ -13,4 +13,5 @@ public interface IType {
     Date getUseEndDate();
     void setUseEndDate(Date useEndDate);
     String getFacilityUseType();
+    //Implementation of the Bridge Pattern. (See IUser Interface).
 }

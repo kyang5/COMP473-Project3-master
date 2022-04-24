@@ -126,7 +126,7 @@ public class MaintenanceLog implements ILog {
         }
         return stringBuilder.toString();
     }
-
+//Implementation of Visitor Pattern. It exports respective lists as XML files.
     public String visitRequest(IRequest request) {
         return "<request>" + "\n" +
                 "<requestID>" + request.getRequestID() + "</requestID>" + "\n" +

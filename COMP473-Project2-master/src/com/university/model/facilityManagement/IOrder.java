@@ -16,4 +16,5 @@ public interface IOrder {
     IFacilityRoom getFacilityRoom();
     void setFacilityRoom(IFacilityRoom facilityRoom);
     String accept(ILog maintenanceLog);
+    //Implementation of Visitor Pattern.
 }

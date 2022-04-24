@@ -12,4 +12,5 @@ public interface IUser {
     int getOccupancy();
     void setOccupancy(int occupancy);
     void update(boolean inUse, int roomNumber);
+    //Update method to implement Bridge pattern. (See Employee and Student and IType interface).
 }

@@ -39,10 +39,12 @@ public class Student implements IUser{
     public Student(IType useType) {
         this.useType = useType;
     }
+    //Implementation of Bridge Pattern from IType.
 
     public IType getUseType() {
         return useType;
     }
+    //Implementation of Bridge Pattern from IType.
 
     public int getOccupancy() {
         return occupancy;
@@ -51,7 +53,8 @@ public class Student implements IUser{
     public void setOccupancy(int occupancy) {
         this.occupancy = occupancy;
     }
-
+    //Update method for the implemented Bridge Pattern from the IUser interface.
+    //If else statement prints out whether or not the facility room is in use.
     public void update(boolean inUse, int roomNumber){
         if (!inUse) {
             System.out.println("Room " + roomNumber + " is currently not in use" );

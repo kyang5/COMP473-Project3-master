@@ -59,6 +59,7 @@ public class Inspection implements IInspection {
     public String accept(ILog maintenanceLog) {
         return maintenanceLog.visitInspection(this);
     }
+    //Implementation of Visitor Pattern.
 }
 
 
