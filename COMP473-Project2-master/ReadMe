@@ -12,10 +12,25 @@ For clarity: getListFacilityRooms() and getListFacilities() retrieves the inform
 
              Lastly, getMaintenanceRequestList()
              (line 67) in the MaintenanceLog class under faclityManagement fulfills
-             a similar fuction as listFacilityProblems().
+             a similar function as listFacilityProblems().
 
 
 We created interfaces for each of our pre-existing classes and made multiple additions to the xml file to integrate
 the Spring Framework into our project. Lastly ,we included multiple test cases for the project in FacilityClient file
 with additional comments on what each setter, getter, and add method was meant to accomplish to print each of their
 respectively related lists.
+
+
+Pattern Implementations
+==========================
+The bridge pattern was implemented in the the use package, specifically between the IUser interface and the IType interface.
+The classes that implements the IUser interface are Employee and Student. The classes that implements the IType interface
+are: ClassRoom, Lab, and Office. This implementation of the pattern allows for any user type to utilize any type as the user's
+use type attribute.
+
+The observer pattern was implemented between the FacilityRoom in the facility package and the user in the use package.
+This pattern allows for a user to be notified when a facility room is vacant and available for use.
+
+The visitor pattern was implemented in the facilityManagement package. The pattern allows for the MaintenanceLog to export
+the maintenance schedules, maintenance orders, maintenance requests and the maintenance inspections to be exported as a
+XML file.
